@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  app:
+    container_name: sample_app
+    build:
+        context: ./docker/app
+    privileged: true
+    tty: true
+    command: ./gradlew clean bootRun
+    volumes:
+      - ./:/app:delegated
+    networks:
+      - sample_network
+    ports:
+      - "10080:8080"
+
+  db:
+    image: mysql:8.0
+    container_name: sample_db
+    privileged: true
+    environment:
+      MYSQL_ROOT_PASSWORD: mysql
+      MYSQL_DATABASE: sample
+      MYSQL_USER: sample
+      MYSQL_PASSWORD: sample_p@SSw0rd
+      TZ: "Asia/Tokyo"
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - ./docker/db/data:/var/lib/mysql:delegated
+      - ./docker/db/my.cnf:/etc/mysql/conf.d/my.cnf:delegated
+      - ./docker/db/init/01-init.sql:/docker-entrypoint-initdb.d/init.sql:delegated
+    networks:
+      - sample_network
+    ports:
+      - "33060:3306"
+
+networks:
+  sample_network:
+    driver: "bridge"
