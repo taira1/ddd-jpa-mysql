@@ -1,1 +1,1 @@
-# ddd_jpa_mysql
+# ddd-jpa-mysql
