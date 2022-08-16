@@ -1,25 +1,25 @@
 buildscript {
 	ext {
 		versions = [
-			'Java': '11',
-			// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot
-			'SpringBoot': '2.5.2',
-			// https://mvnrepository.com/artifact/mysql/mysql-connector-java
-			'MySQL': '8.0.25',
-			// https://mvnrepository.com/artifact/org.projectlombok/lombok
-			'lombok': '1.18.20',
-			// https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core
-			'log4j2': '2.14.1',
+				'Java': '11',
+				// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot
+				'SpringBoot': '2.5.3',
+				// https://mvnrepository.com/artifact/mysql/mysql-connector-java
+				'MySQL': '8.0.26',
+				// https://mvnrepository.com/artifact/org.projectlombok/lombok
+				'lombok': '1.18.20',
+				// https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core
+				'log4j2': '2.14.1',
 		]
 	}
 
-    repositories {
-        mavenCentral()
-    }
+	repositories {
+		mavenCentral()
+	}
 
-    dependencies {
-        classpath "org.springframework.boot:spring-boot-gradle-plugin:${versions.SpringBoot}"
-    }
+	dependencies {
+		classpath "org.springframework.boot:spring-boot-gradle-plugin:${versions.SpringBoot}"
+	}
 }
 
 apply plugin: 'org.springframework.boot'
@@ -32,8 +32,8 @@ sourceCompatibility = "${versions.Java}"
 
 repositories {
 	mavenCentral()
-    maven { url "https://repo.spring.io/snapshot" }
-    maven { url "https://repo.spring.io/milestone" }
+	maven { url "https://repo.spring.io/snapshot" }
+	maven { url "https://repo.spring.io/milestone" }
 }
 
 configurations.all {
@@ -47,25 +47,33 @@ configurations.all {
 }
 
 dependencies {
-
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: "${versions.SpringBoot}"
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: "${versions.SpringBoot}"
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: "${versions.SpringBoot}"
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-aop', version: "${versions.SpringBoot}"
 	developmentOnly group: 'org.springframework.boot', name: 'spring-boot-devtools', version: "${versions.SpringBoot}"
 
-	implementation group: 'javax.persistence', name: 'javax.persistence-api', version: '2.2'
+	// https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-api
+	implementation group: 'io.jsonwebtoken', name: 'jjwt-api', version: '0.11.2'
+	implementation group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.11.2'
+	implementation group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.11.2'
 
-    implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: "${versions.log4j2}"
-    implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: "${versions.log4j2}"
+	implementation group: 'javax.persistence', name: 'javax.persistence-api', version: '2.2'
+	implementation group: 'mysql', name: 'mysql-connector-java', version: "${versions.MySQL}"
+
+	implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: "${versions.log4j2}"
+	implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: "${versions.log4j2}"
 
 	implementation group: 'io.swagger.core.v3', name: 'swagger-core', version: '2.1.10'
+
+	implementation 'org.modelmapper:modelmapper:latest.release'
 
 	testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test'
 
 
 	compileOnly "org.projectlombok:lombok:${versions.lombok}"
 	annotationProcessor "org.projectlombok:lombok:${versions.lombok}"
-	
+
 	testCompileOnly "org.projectlombok:lombok:${versions.lombok}"
 	testAnnotationProcessor "org.projectlombok:lombok:${versions.lombok}"
 }
@@ -85,13 +93,13 @@ eclipse {
 	}
 
 	classpath {
-        file.whenMerged {
-            entries.each { entry ->
-                if (entry.kind == 'src' && entry.hasProperty('output')) {
-                    entry.output = entry.output.replace('bin/', "build/")
-                }
-            }
-        }
+		file.whenMerged {
+			entries.each { entry ->
+				if (entry.kind == 'src' && entry.hasProperty('output')) {
+					entry.output = entry.output.replace('bin/', "build/")
+				}
+			}
+		}
 	}
 }
 
@@ -114,7 +122,7 @@ idea {
 		iml {
 			beforeMerged { module ->
 				module.dependencies.clear()
-	    	}
+			}
 		}
 	}
 
@@ -122,7 +130,7 @@ idea {
 		ipr {
 			beforeMerged { project ->
 				project.modulePaths.clear()
-	    	}
+			}
 		}
 	}
 }

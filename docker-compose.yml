@@ -4,7 +4,7 @@ services:
   app:
     container_name: sample_app
     build:
-        context: ./docker/app
+      context: ./docker/app
     privileged: true
     tty: true
     command: ./gradlew clean bootRun
