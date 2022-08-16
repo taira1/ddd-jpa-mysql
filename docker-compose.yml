@@ -14,6 +14,8 @@ services:
       - sample_network
     ports:
       - "10080:8080"
+    environment:
+      SKATE_DATASOURCE: jdbc:mysql://sample_db:3306/sample
 
   db:
     image: mysql:8.0

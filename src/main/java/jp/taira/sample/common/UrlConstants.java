@@ -15,4 +15,8 @@ public class UrlConstants {
 
     public static final String LOGIN = API_PREFIX + "/login";
 
+    public static final String USER = API_PREFIX + "/user";
+
+    public static final String USER_LIST = USER + "/list";
+
 }
