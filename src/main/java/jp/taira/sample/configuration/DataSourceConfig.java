@@ -5,8 +5,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @Configuration
-@EnableJpaRepositories(basePackages = "jp.taira.sample.infrastructure.repository")
-@EntityScan(basePackages = "jp.taira.sample.infrastructure.entity")
+@EnableJpaRepositories(basePackages = "jp.taira.sample.infrastructure.datasource.repository")
+@EntityScan(basePackages = "jp.taira.sample.infrastructure.datasource.entity")
 public class DataSourceConfig {
 
 }

@@ -1,5 +1,6 @@
 package jp.taira.sample.presentation;
 
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.AfterThrowing;
@@ -14,7 +15,7 @@ import lombok.extern.log4j.Log4j2;
  */
 @Aspect
 @Component
-@Log4j2
+@Slf4j
 public class LoggingAspects {
 
     private static final String ENTER = "[ENTER] ";
@@ -26,7 +27,7 @@ public class LoggingAspects {
      *
      * @param joinPoint
      */
-    @Before("execution(* jp.isols.skate.presentation.controller..*.*(..))")
+    @Before("execution(* jp.taira.sample.presentation.controller..*.*(..))")
     public void invokeControllerBefore(JoinPoint joinPoint) {
         log.info(ENTER + getSignatureName(joinPoint));
     }
@@ -37,7 +38,7 @@ public class LoggingAspects {
      * @param joinPoint
      * @param returnValue
      */
-    @AfterReturning(pointcut = "execution(* jp.isols.skate.presentation.controller..*.*(..))", returning = "returnValue")
+    @AfterReturning(pointcut = "execution(* jp.taira.sample.presentation.controller..*.*(..))", returning = "returnValue")
     public void invokeControllerAfterReturning(JoinPoint joinPoint, Object returnValue) {
         log.info(EXIT + getSignatureName(joinPoint));
     }
@@ -48,7 +49,7 @@ public class LoggingAspects {
      * @param joinPoint
      * @param e
      */
-    @AfterThrowing(value = "execution(* jp.isols.skate.presentation.controller..*.*(..))", throwing = "e")
+    @AfterThrowing(value = "execution(* jp.taira.sample.presentation.controller..*.*(..))", throwing = "e")
     public void invokeControllerAfterThrowing(JoinPoint joinPoint, Throwable e) {
         log.info(ERROR + getSignatureName(joinPoint));
     }

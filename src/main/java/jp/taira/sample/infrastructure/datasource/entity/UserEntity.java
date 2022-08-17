@@ -45,5 +45,4 @@ public class UserEntity extends BaseEntity {
     /** 削除フラグ */
     @Column(name = "delete_flag", nullable = false)
     private Integer deleteFlag;
-
 }
