@@ -1,4 +1,4 @@
-package jp.taira.sample.infrastructure.entity;
+package jp.taira.sample.infrastructure.datasource.entity;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;

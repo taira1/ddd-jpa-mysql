@@ -11,6 +11,8 @@ buildscript {
 				// https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core
 				'log4j2': '2.14.1',
 		]
+
+		generatedSourcesDirectory = "src/generated/java"
 	}
 
 	repositories {
@@ -46,11 +48,22 @@ configurations.all {
 	exclude group: 'org.slf4j', module: 'slf4j-log4j12'
 }
 
+compileJava {
+	sourceCompatibility = "${versions.Java}"
+	targetCompatibility = "${versions.Java}"
+	options.encoding = "UTF-8"
+	options.annotationProcessorGeneratedSourcesDirectory = file(generatedSourcesDirectory)
+}
+sourceSets {
+	generated.java.srcDirs = [ generatedSourcesDirectory ]
+}
+
 dependencies {
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: "${versions.SpringBoot}"
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: "${versions.SpringBoot}"
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: "${versions.SpringBoot}"
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-aop', version: "${versions.SpringBoot}"
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: "${versions.SpringBoot}"
 	developmentOnly group: 'org.springframework.boot', name: 'spring-boot-devtools', version: "${versions.SpringBoot}"
 
 	// https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-api
